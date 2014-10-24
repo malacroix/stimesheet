@@ -1,0 +1,32 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<context:property-placeholder ignore-unresolvable="true"  location="classpath*:META-INF/context/stimesheet.properties"/>
+
+	<bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML5" />
+		<property name="cacheable" value="false" />
+	</bean>
+	
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
+	
+	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+		<property name="order" value="1" />
+		<property name="viewNames" value="thymeleaf/*" />
+	</bean>
+
+
+</beans>
