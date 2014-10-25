@@ -21,4 +21,8 @@
 	<!-- The static JS/CSS/images are all under /resources -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
+	<!-- Enabled Debug logging of requests -->
+	<mvc:interceptors>
+		<bean class="ca.lc.stimesheet.web.interceptor.RequestLoggingInterceptor"></bean>
+	</mvc:interceptors>   
 </beans>
