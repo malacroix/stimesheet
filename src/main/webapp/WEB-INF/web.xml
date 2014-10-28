@@ -7,7 +7,7 @@
 	id="WebApp_ID" version="3.0">
     
     <display-name>Simple-Timesheet</display-name>
- 
+
     <servlet>
         <servlet-name>stimesheet</servlet-name>
         <servlet-class>

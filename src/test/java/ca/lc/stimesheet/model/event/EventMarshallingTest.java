@@ -5,14 +5,16 @@ package ca.lc.stimesheet.model.event;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import ca.lc.stimesheet.marshall.ModelMarshaller;
 
 /**
  * @author Marc-Andre Lacroix
@@ -22,24 +24,29 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration({ "classpath*:META-INF/context/applicationContext-stimesheet-*.xml" })
 public class EventMarshallingTest {
     
-    private Unmarshaller jaxbUnmarshaller;
+    @Autowired
+    private ModelMarshaller modelMarshaller;
+
     private Marshaller jaxbMarshaller;
     
     @Before
     public void setup() throws Exception {
         JAXBContext jaxbContext = JAXBContext.newInstance(Event.class, EventResult.class);
-        jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         jaxbMarshaller = jaxbContext.createMarshaller();
     }
 
     @Test
     public void testEventUnMarshallingDummyCreate() throws Exception {
-        Event event = (Event) jaxbUnmarshaller.unmarshal(Event.class.getResourceAsStream("dummyOrder.xml"));
+
+        Event event = modelMarshaller.unmarshallEvent(Event.class.getResourceAsStream("dummyOrder.xml"));
+        
         Assert.assertNotNull("The unmarshalled Event object should not be null", event);
     }
-    
+
     @Test
     public void testEventResultMarshallingSuccess() throws Exception {
+        // We let the Spring MVC mechanism convert the EventResult to XML, but here is simply
+        // to validate the XML output it should produce using normal marshalling
 
         EventResult result = new EventResult();
         result.setSuccess(true);

@@ -9,6 +9,12 @@
 	<logger name="org.springframework" level="WARN" />
 	<logger name="org.thymeleaf" level="WARN" />
 	
+	<!-- Log the incoming requests. Very useful for debugging -->
+	<logger name="ca.lc.stimesheet.web.interceptor.RequestLoggingInterceptor" level="DEBUG" />
+	
+	<!-- By Default -->
+	<logger name="ca.lc.stimesheet" level="DEBUG" />
+	
 	<root level="info">
 		<appender-ref ref="STDOUT" />
 	</root>
