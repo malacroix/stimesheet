@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
 
 import ca.lc.stimesheet.marshall.ModelMarshaller;
+import ca.lc.stimesheet.model.event.ErrorCode;
 import ca.lc.stimesheet.model.event.Event;
 import ca.lc.stimesheet.model.event.EventResult;
 import ca.lc.stimesheet.service.EventService;
@@ -86,7 +87,7 @@ public class EventController {
                         // Can't do much without event
                         result.setSuccess(false);
                         result.setMessage("The retrieved event was null...");
-                        result.setErrorCode("RETRIEVED_EVENT_NULL");
+                        result.setErrorCode(ErrorCode.INVALID_RESPONSE);
                     }
 
                 } catch (RestClientException rce) {
@@ -96,7 +97,7 @@ public class EventController {
                     
                     result.setSuccess(false);
                     result.setMessage(errorMessage);
-                    result.setErrorCode("CANNOT_RETRIEVE_EVENT");
+                    result.setErrorCode(ErrorCode.INVALID_RESPONSE);
                 } catch (EventHandlingException ehe) {
                     // Could not process the event properly
                     result.setSuccess(false);
@@ -109,13 +110,13 @@ public class EventController {
                     // Should preferably handle all the exception cases, but in case we missed something, let's handle it gracefully
                     result.setSuccess(false);
                     result.setMessage(errorMessage);
-                    result.setErrorCode("UNKNOWN_ISSUE");
+                    result.setErrorCode(ErrorCode.UNKNOWN_ERROR);
                 }
             } else {
                 // Incoming Request was not properly signed.
                 result.setSuccess(false);
                 result.setMessage("The incoming requests was not properly signed.");
-                result.setErrorCode("OAUTH_INVALID_REQUEST");
+                result.setErrorCode(ErrorCode.INVALID_RESPONSE);
                 resultStatus = HttpStatus.UNAUTHORIZED;
             }
 
@@ -123,7 +124,7 @@ public class EventController {
             // No Event URL, can't do much
             result.setSuccess(false);
             result.setMessage("No Event URL was provided. Cannot process any event.");
-            result.setErrorCode("NO_EVENT_URL");
+            result.setErrorCode(ErrorCode.CONFIGURATION_ERROR);
         }
 
         // Should return an Event Result in all cases

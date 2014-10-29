@@ -3,6 +3,8 @@
  */
 package ca.lc.stimesheet.service.exception;
 
+import ca.lc.stimesheet.model.event.ErrorCode;
+
 /**
  * Exception when an Event Handling doesn't execute as planned.
  * 
@@ -12,9 +14,9 @@ package ca.lc.stimesheet.service.exception;
 public class EventHandlingException extends Exception {
     private static final long serialVersionUID = 7514484864035138485L;
     
-    private String errorCode;  
+    private ErrorCode errorCode;  
     
-    public EventHandlingException(String errorCode, String message) {
+    public EventHandlingException(ErrorCode errorCode, String message) {
         super(message);
         this.errorCode = errorCode;
     }
@@ -22,7 +24,7 @@ public class EventHandlingException extends Exception {
     /**
      * @return the errorCode
      */
-    public String getErrorCode() {
+    public ErrorCode getErrorCode() {
         return errorCode;
     }
 }

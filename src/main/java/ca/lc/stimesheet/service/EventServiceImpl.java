@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import ca.lc.stimesheet.model.event.ErrorCode;
 import ca.lc.stimesheet.model.event.Event;
 import ca.lc.stimesheet.service.exception.EventHandlingException;
 import ca.lc.stimesheet.service.handler.EventTypeHandler;
@@ -52,11 +53,11 @@ public class EventServiceImpl implements EventService {
                 // It should throw an exception if there is any issue
                 return handler.handleEvent(event);
             } else {
-                throw new EventHandlingException("NO_EVENT_HANDLER", "Event '" + event.getType() + "' not handled by the application.");
+                throw new EventHandlingException(ErrorCode.UNKNOWN_ERROR, "Event '" + event.getType() + "' not handled by the application.");
             }
             
         } else {
-            throw new EventHandlingException("NO_EVENT", "There was not Event to handle.");
+            throw new EventHandlingException(ErrorCode.INVALID_RESPONSE, "There was not Event to handle.");
         }
     }
 

@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class EventResult {
 
     private boolean success;
-    private String errorCode;
+    private ErrorCode errorCode;
     private String message;
     private String accountIdentifier;
     
@@ -35,13 +35,13 @@ public class EventResult {
     /**
      * @return the errorCode
      */
-    public String getErrorCode() {
+    public ErrorCode getErrorCode() {
         return errorCode;
     }
     /**
      * @param errorCode the errorCode to set
      */
-    public void setErrorCode(String errorCode) {
+    public void setErrorCode(ErrorCode errorCode) {
         this.errorCode = errorCode;
     }
     /**
