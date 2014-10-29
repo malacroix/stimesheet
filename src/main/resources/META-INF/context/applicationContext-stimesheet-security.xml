@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:oauth="http://www.springframework.org/schema/security/oauth"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/security/oauth http://www.springframework.org/schema/security/spring-security-oauth.xsd">
+	
+	<!-- Load common properties and Spring Context -->
+	<context:property-placeholder ignore-unresolvable="true"  location="classpath*:META-INF/context/stimesheet.properties"/>
+	<import resource="classpath*:META-INF/context/applicationContext-common-*.xml" />
+	
+	<!-- Spring Context Configuration -->
+    <context:annotation-config />
+    <context:component-scan base-package="ca.lc.stimesheet" />
+
+	<security:http>
+		
+		<security:openid-login
+				authentication-failure-handler-ref="authenticationFailureHandler"
+				authentication-success-handler-ref="authenticationSuccessHandler"
+				user-service-ref="internalUserDetailsService">
+
+			<!-- Match all Marketplaces as they should have all the same openid-attributes -->
+			<!-- TO IMPROVE : extend a AxFetchListFactory to match with known Marketplace.baseURL -->
+			<security:attribute-exchange>
+				<!-- TODO : Fix handling UTF-8 characters in attributes which breaks signature! -->
+				<security:openid-attribute name="email" type="http://axschema.org/contact/email" required="true" />
+				<security:openid-attribute name="firstName" type="http://axschema.org/namePerson/first" required="true" />
+				<security:openid-attribute name="lastName" type="http://axschema.org/namePerson/last" required="true" />
+				<security:openid-attribute name="language" type="http://axschema.org/pref/language" required="true" />
+			</security:attribute-exchange>
+		</security:openid-login>
+		
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider ref="openIdAuthProvider" />
+	</security:authentication-manager>
+	<bean id="openIdAuthProvider" class="org.springframework.security.openid.OpenIDAuthenticationProvider">
+		<property name="authenticationUserDetailsService" ref="internalUserDetailsService" />
+	</bean>
+<!-- 
+	<security:authentication-manager>
+	    <security:authentication-provider user-service-ref="internalUserDetailsService"  />
+	</security:authentication-manager>
+	 -->
+	
+	<!-- bean id="internalUserDetailsService" class="ca.lc.stimesheet.web.login.InternalUserDetailsService" / -->
+	<bean id="internalUserDetailsService" class="ca.lc.stimesheet.web.login.InternalAuthenticationUserDetailsService" />
+	<bean id="authenticationFailureHandler" class="ca.lc.stimesheet.web.login.LoginFailureHandler" />
+	<bean id="authenticationSuccessHandler" class="ca.lc.stimesheet.web.login.LoginSuccessHandler" />
+
+</beans>
