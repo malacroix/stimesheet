@@ -37,6 +37,8 @@ import org.springframework.stereotype.Component;
 public class OAuthMarketplaceServiceImpl implements OAuthMarketplaceService {
     private static final Logger log = LoggerFactory.getLogger(OAuthMarketplaceServiceImpl.class);
 
+    private static final String SEPARATOR = ":";
+    
     @Value("${STIMESHEET_CONSUMER_PARTNERS}")
     private String partnerList;
     
@@ -51,9 +53,9 @@ public class OAuthMarketplaceServiceImpl implements OAuthMarketplaceService {
     @PostConstruct
     public void init() {
         // Must construct structure of partner-consumer keys and secret to support multi-partners
-        String[] partnerSplit = StringUtils.split(partnerList, ";");
-        String[] consumerKeySplit = StringUtils.split(consumerKeyList, ";");
-        String[] consumerSecretSplit = StringUtils.split(consumerSecretList, ";");
+        String[] partnerSplit = StringUtils.split(partnerList, SEPARATOR);
+        String[] consumerKeySplit = StringUtils.split(consumerKeyList, SEPARATOR);
+        String[] consumerSecretSplit = StringUtils.split(consumerSecretList, SEPARATOR);
         
         // loop on the partner
         for (int i = 0; i < partnerSplit.length; i++) {
