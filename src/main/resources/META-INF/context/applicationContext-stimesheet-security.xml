@@ -27,7 +27,8 @@
 			<!-- Match all Marketplaces as they should have all the same openid-attributes -->
 			<!-- TO IMPROVE : extend a AxFetchListFactory to match with known Marketplace.baseURL -->
 			<security:attribute-exchange>
-				<!-- TODO : Fix handling UTF-8 characters in attributes which breaks signature! -->
+				<!-- Make sure to have the URI Encoding in Web App Container set to UTF-8 to  -->
+				<!-- handle special characters in attributes which breaks OpenID signature!   -->
 				<security:openid-attribute name="email" type="http://axschema.org/contact/email" required="true" />
 				<security:openid-attribute name="firstName" type="http://axschema.org/namePerson/first" required="true" />
 				<security:openid-attribute name="lastName" type="http://axschema.org/namePerson/last" required="true" />
