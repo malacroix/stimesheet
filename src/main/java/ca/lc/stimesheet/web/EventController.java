@@ -20,6 +20,8 @@ import org.springframework.web.client.RestClientException;
 import ca.lc.stimesheet.marshall.ModelMarshaller;
 import ca.lc.stimesheet.model.event.Event;
 import ca.lc.stimesheet.model.event.EventResult;
+import ca.lc.stimesheet.service.EventService;
+import ca.lc.stimesheet.service.exception.EventHandlingException;
 import ca.lc.stimesheet.web.oauth.OAuthMarketplaceService;
 
 @RestController
@@ -34,6 +36,9 @@ public class EventController {
     
     @Autowired
     private ModelMarshaller modelMarshaller;
+    
+    @Autowired
+    private EventService eventService;
 
     // TODO : should handle all incoming URLS
     // Create a EventService to handle all the cases, return EventResult
@@ -41,10 +46,9 @@ public class EventController {
 
     @RequestMapping(produces=MediaType.APPLICATION_XML_VALUE)
     public @ResponseBody ResponseEntity<EventResult> handle(@RequestParam(value = "partner", required = false) String partnerId,
-                                                            @RequestParam(value = "type", required = false) String eventType,
                                                             @RequestParam(value = "url", required = false) String eventUrl,
                                                             HttpServletRequest request) {
-        log.info("Handle Event : partner='{}', type='{}', url='{}'", partnerId, eventType, eventUrl);
+        log.info("Handle Event : partner='{}', url='{}'", partnerId, eventUrl);
         
         HttpStatus resultStatus = HttpStatus.OK;
         EventResult result = new EventResult();
@@ -67,7 +71,7 @@ public class EventController {
                     if (event != null) {
                         // Check if flag is STATELESS (in that case, answer, but do not persist)
                         if (!StringUtils.equalsIgnoreCase(event.getFlag(), EVENT_FLAG_STATELESS)) {
-                           // TODO : Handle the event appropriately
+                            eventService.handleEvent(event);
                         } else {
                             log.info("Retrieved a Stateless event. Not doing any real processing of the event.");
                         }
@@ -82,12 +86,18 @@ public class EventController {
                     }
 
                 } catch (RestClientException rce) {
+                    // TODO : This exception is not thrown anymore, code was changed
                     String errorMessage = "Could not retrieve the event from received url '" + eventUrl + "': error='" + rce.getMessage() + "'.";
                     log.error(errorMessage, rce);
                     
                     result.setSuccess(false);
                     result.setMessage(errorMessage);
                     result.setErrorCode("CANNOT_RETRIEVE_EVENT");
+                } catch (EventHandlingException ehe) {
+                    // Could not process the event properly
+                    result.setSuccess(false);
+                    result.setMessage(ehe.getMessage());
+                    result.setErrorCode(ehe.getErrorCode());
                 } catch (Exception e) {
                     String errorMessage = "There was an issue while tring to process event from '" + eventUrl + "': error='" + e.getMessage() + "'.";
                     log.error(errorMessage, e);
@@ -113,7 +123,7 @@ public class EventController {
         }
 
         // Should return an Event Result in all cases
-    	return new ResponseEntity<EventResult>(result ,resultStatus);
+        return new ResponseEntity<EventResult>(result ,resultStatus);
     }
     
 }
