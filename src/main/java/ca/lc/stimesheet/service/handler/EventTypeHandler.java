@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ca.lc.stimesheet.model.event.Event;
-import ca.lc.stimesheet.model.event.EventResult;
 import ca.lc.stimesheet.service.EventService;
 import ca.lc.stimesheet.service.exception.EventHandlingException;
 
@@ -43,7 +42,7 @@ public abstract class EventTypeHandler {
     /**
      * Handles an event.
      * @param event
-     * @return The {@link EventResult}
+     * @return The Account ID of a new Subscription Account, otherwise null
      */
-    public abstract void handleEvent(Event event) throws EventHandlingException;
+    public abstract String handleEvent(Event event) throws EventHandlingException;
 }

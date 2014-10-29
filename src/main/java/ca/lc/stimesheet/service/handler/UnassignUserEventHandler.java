@@ -24,8 +24,10 @@ public class UnassignUserEventHandler extends EventTypeHandler {
     }
 
     @Override
-    public void handleEvent(Event event) throws EventHandlingException {
+    public String handleEvent(Event event) throws EventHandlingException {
         log.info("Handling event : " + event.getType());
+        
+        return null;
     }
 
 }

@@ -40,7 +40,7 @@ public class EventServiceImpl implements EventService {
     }
     
     @Override
-    public void handleEvent(Event event) throws EventHandlingException {
+    public String handleEvent(Event event) throws EventHandlingException {
 
         if (event != null) {
             String normalizedEventType = normalizedEventType(event.getType()); 
@@ -50,7 +50,7 @@ public class EventServiceImpl implements EventService {
                 log.debug("handleEvent: Found EventTypeHandler '" + handler.getEventType() + "'.");
                 
                 // It should throw an exception if there is any issue
-                handler.handleEvent(event);
+                return handler.handleEvent(event);
             } else {
                 throw new EventHandlingException("NO_EVENT_HANDLER", "Event '" + event.getType() + "' not handled by the application.");
             }

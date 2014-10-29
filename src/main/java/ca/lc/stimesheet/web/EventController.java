@@ -71,7 +71,11 @@ public class EventController {
                     if (event != null) {
                         // Check if flag is STATELESS (in that case, answer, but do not persist)
                         if (!StringUtils.equalsIgnoreCase(event.getFlag(), EVENT_FLAG_STATELESS)) {
-                            eventService.handleEvent(event);
+                            String accountId = eventService.handleEvent(event);
+                            
+                            if (accountId != null) {
+                                result.setAccountIdentifier(accountId);
+                            }
                         } else {
                             log.info("Retrieved a Stateless event. Not doing any real processing of the event.");
                         }

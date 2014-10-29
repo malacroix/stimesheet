@@ -16,10 +16,10 @@ public interface EventService {
     /**
      * Handles an Event. Internally redirects to a actual EventHandler specific to the event type.
      * @param event
-     * @return
+     * @return Account ID of a new Subscription Account, otherwise null
      * @throws EventHandlingException if there is an issue processing the event
      */
-    void handleEvent(Event event) throws EventHandlingException;
+    String handleEvent(Event event) throws EventHandlingException;
     
     /**
      * Registering method for {@link EventTypeHandler}.
