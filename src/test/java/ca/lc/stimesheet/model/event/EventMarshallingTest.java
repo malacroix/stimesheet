@@ -21,7 +21,7 @@ import ca.lc.stimesheet.marshall.ModelMarshaller;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath*:META-INF/context/applicationContext-stimesheet-*.xml" })
+@ContextConfiguration({ "classpath*:META-INF/context/applicationContext-stimesheet-test.xml" })
 public class EventMarshallingTest {
     
     @Autowired
