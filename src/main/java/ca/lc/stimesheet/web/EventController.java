@@ -114,9 +114,7 @@ public class EventController {
                 }
             } else {
                 // Incoming Request was not properly signed.
-                result.setSuccess(false);
-                result.setMessage("The incoming requests was not properly signed.");
-                result.setErrorCode(ErrorCode.INVALID_RESPONSE);
+                result = null;
                 resultStatus = HttpStatus.UNAUTHORIZED;
             }
 
