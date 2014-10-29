@@ -18,6 +18,8 @@ public class EventResult {
     private boolean success;
     private String errorCode;
     private String message;
+    private String accountIdentifier;
+    
     /**
      * @return the success
      */
@@ -53,5 +55,18 @@ public class EventResult {
      */
     public void setMessage(String message) {
         this.message = message;
+    }
+    
+    /**
+     * @return the accountIdentifier
+     */
+    public String getAccountIdentifier() {
+        return accountIdentifier;
+    }
+    /**
+     * @param accountIdentifier the accountIdentifier to set
+     */
+    public void setAccountIdentifier(String accountIdentifier) {
+        this.accountIdentifier = accountIdentifier;
     }
 }

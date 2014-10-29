@@ -16,7 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Marc-Andre Lacroix
  *
  */
-public class Configuration {
+public class Attributes {
 
     @XmlElement(name = "entry")
     private List<Entry> entries = new ArrayList<Entry>();

@@ -19,6 +19,8 @@ public class EventUser {
     private String lastName;
     
     private String language;
+    
+    private Attributes attributes;
 
     /**
      * @return the uuid
@@ -88,6 +90,19 @@ public class EventUser {
      */
     public void setLanguage(String language) {
         this.language = language;
+    }
+    
+    /**
+     * @return the attributes
+     */
+    public Attributes getAttributes() {
+        return attributes;
+    }
+    /**
+     * @param attributes the attributes to set
+     */
+    public void setAttributes(Attributes attributes) {
+        this.attributes = attributes;
     }
     
     @Override

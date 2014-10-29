@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -18,8 +19,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Order {
 
     private String editionCode;
-    private List<OrderItem> items = new ArrayList<OrderItem>();
     private String pricingDuration;
+    
+    @XmlElement(name = "item")
+    private List<OrderItem> items = new ArrayList<OrderItem>();
+    
     /**
      * @return the editionCode
      */
@@ -35,9 +39,15 @@ public class Order {
     /**
      * @return the items
      */
-    @XmlElement(name = "item")
+    @XmlTransient
     public List<OrderItem> getItems() {
         return items;
+    }
+    /**
+     * @param items the items to set
+     */
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 
     /**
