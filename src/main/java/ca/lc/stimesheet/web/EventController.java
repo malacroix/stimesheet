@@ -27,7 +27,7 @@ import ca.lc.stimesheet.web.oauth.OAuthMarketplaceService;
 public class EventController {
     private static final Logger log = LoggerFactory.getLogger(EventController.class);
     
-    private static String EVENT_FLAG_STATELESS = "STATELESS";
+    private static final String EVENT_FLAG_STATELESS = "STATELESS";
     
     @Autowired
     private OAuthMarketplaceService oAuthMarketplaceService;
@@ -40,8 +40,11 @@ public class EventController {
     // EventService factory to retrieve EventHandler
 
     @RequestMapping(produces=MediaType.APPLICATION_XML_VALUE)
-    public @ResponseBody ResponseEntity<EventResult> handle(@RequestParam(value = "type", required = false) String eventType, @RequestParam(value = "url", required = false) String eventUrl, HttpServletRequest request) {
-        log.info("Handle Event : type='{}', url='{}'", eventType, eventUrl);
+    public @ResponseBody ResponseEntity<EventResult> handle(@RequestParam(value = "partner", required = false) String partnerId,
+                                                            @RequestParam(value = "type", required = false) String eventType,
+                                                            @RequestParam(value = "url", required = false) String eventUrl,
+                                                            HttpServletRequest request) {
+        log.info("Handle Event : partner='{}', type='{}', url='{}'", partnerId, eventType, eventUrl);
         
         HttpStatus resultStatus = HttpStatus.OK;
         EventResult result = new EventResult();
@@ -49,13 +52,13 @@ public class EventController {
         if (StringUtils.isNotBlank(eventUrl)) {            
             
             // Validate OAuth
-            if (oAuthMarketplaceService.validateIncomingMarketplaceRequest("TODO", request)) {
+            if (oAuthMarketplaceService.validateIncomingMarketplaceRequest(partnerId, request)) {
                 try {
                     log.debug("Going to retrieve Event from URL '{}'", eventUrl);
 
                     // Sign the request and get Event Object from XML of provided URL
                     // TODO : better handling of request
-                    HttpURLConnection eventRequest = oAuthMarketplaceService.signOutgoingMarketplaceRequest("TODO", eventUrl);
+                    HttpURLConnection eventRequest = oAuthMarketplaceService.signOutgoingMarketplaceRequest(partnerId, eventUrl);
                     Event event = modelMarshaller.unmarshallEvent(eventRequest.getInputStream());
                     
                     log.debug("Event retrieved : {}", event);

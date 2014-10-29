@@ -11,7 +11,9 @@
                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
                            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+	<!-- Load common properties and Spring Context -->
 	<context:property-placeholder ignore-unresolvable="true"  location="classpath*:META-INF/context/stimesheet.properties"/>
+	<import resource="classpath*:META-INF/context/applicationContext-common-*.xml" />
 
     <context:annotation-config />
     <context:component-scan base-package="ca.lc.stimesheet" />
@@ -25,4 +27,23 @@
 	<mvc:interceptors>
 		<bean class="ca.lc.stimesheet.web.interceptor.RequestLoggingInterceptor"></bean>
 	</mvc:interceptors>   
+	
+	<!--  Use Thymeleaf instead of JSPs -->
+	<bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML5" />
+		<property name="cacheable" value="false" />
+	</bean>
+	
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
+	
+	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+		<property name="order" value="1" />
+		<property name="viewNames" value="thymeleaf/*" />
+	</bean>
+	
 </beans>

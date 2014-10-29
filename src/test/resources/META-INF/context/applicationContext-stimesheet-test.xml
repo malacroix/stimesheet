@@ -9,5 +9,10 @@
 	
 	<!-- Lets load properties for tests only -->
 	<context:property-placeholder ignore-unresolvable="true"  location="classpath*:META-INF/context/stimesheet-tests.properties"/>
+	<import resource="classpath*:META-INF/context/applicationContext-common-*.xml" />
+	
+	<!-- Spring Context Configuration -->
+    <context:annotation-config />
+    <context:component-scan base-package="ca.lc.stimesheet" />
 	
 </beans>
