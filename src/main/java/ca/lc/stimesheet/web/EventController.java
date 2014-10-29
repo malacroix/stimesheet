@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClientException;
 
 import ca.lc.stimesheet.marshall.ModelMarshaller;
 import ca.lc.stimesheet.model.event.ErrorCode;
@@ -90,14 +89,6 @@ public class EventController {
                         result.setErrorCode(ErrorCode.INVALID_RESPONSE);
                     }
 
-                } catch (RestClientException rce) {
-                    // TODO : This exception is not thrown anymore, code was changed
-                    String errorMessage = "Could not retrieve the event from received url '" + eventUrl + "': error='" + rce.getMessage() + "'.";
-                    log.error(errorMessage, rce);
-                    
-                    result.setSuccess(false);
-                    result.setMessage(errorMessage);
-                    result.setErrorCode(ErrorCode.INVALID_RESPONSE);
                 } catch (EventHandlingException ehe) {
                     // Could not process the event properly
                     result.setSuccess(false);
