@@ -5,30 +5,53 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * User definition which can manager timesheets depending on his subscription account.
+ * 
+ * A user is only supported to be assigned to a single subscription account.
+ * 
+ * @author Marc-Andre Lacroix
+ *
+ */
 @Document
 public class User implements Serializable {
     private static final long serialVersionUID = -6263342931115269042L;
 
     @Id
+    private String openId;
+    
 	private String uuid;
-	
-	private String nickname;
-	
+
 	private String firstName;
 	private String lastName;
-	private String fullName;
-	
 	private String email;
 	
 	private String language;
 	
-	// Company info
-	private String companyUuid;
-	private String companyName;
-	private String companyTitle;
+	@DBRef
+	private PartnerMarketplace fromMarketplace;
+	
+	@DBRef
+	private SubscriptionAccount account;
+	
+	private boolean accountCreator;
 
+    /**
+     * @return the openId
+     */
+    public String getOpenId() {
+        return openId;
+    }
+    /**
+     * @param openId the openId to set
+     */
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+    
 	/**
      * @return the uuid
      */
@@ -42,21 +65,7 @@ public class User implements Serializable {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-
-    /**
-     * @return the nickname
-     */
-    public String getNickname() {
-        return nickname;
-    }
-
-    /**
-     * @param nickname the nickname to set
-     */
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
+    
     /**
      * @return the firstName
      */
@@ -85,19 +94,6 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    /**
-     * @return the fullName
-     */
-    public String getFullName() {
-        return fullName;
-    }
-
-    /**
-     * @param fullName the fullName to set
-     */
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 
     /**
      * @return the email
@@ -126,47 +122,44 @@ public class User implements Serializable {
     public void setLanguage(String language) {
         this.language = language;
     }
-
+    
     /**
-     * @return the companyUuid
+     * @return the fromMarketplace
      */
-    public String getCompanyUuid() {
-        return companyUuid;
+    public PartnerMarketplace getFromMarketplace() {
+        return fromMarketplace;
     }
-
     /**
-     * @param companyUuid the companyUuid to set
+     * @param fromMarketplace the fromMarketplace to set
      */
-    public void setCompanyUuid(String companyUuid) {
-        this.companyUuid = companyUuid;
+    public void setFromMarketplace(PartnerMarketplace fromMarketplace) {
+        this.fromMarketplace = fromMarketplace;
     }
-
+    
     /**
-     * @return the companyName
+     * @return the account
      */
-    public String getCompanyName() {
-        return companyName;
+    public SubscriptionAccount getAccount() {
+        return account;
     }
-
     /**
-     * @param companyName the companyName to set
+     * @param account the account to set
      */
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setAccount(SubscriptionAccount account) {
+        this.account = account;
     }
-
+    
     /**
-     * @return the companyTitle
+     * @return the accountCreator
      */
-    public String getCompanyTitle() {
-        return companyTitle;
+    public boolean isAccountCreator() {
+        return accountCreator;
     }
-
     /**
-     * @param companyTitle the companyTitle to set
+     * @param accountCreator the accountCreator to set
      */
-    public void setCompanyTitle(String companyTitle) {
-        this.companyTitle = companyTitle;
+    public void setAccountCreator(boolean accountCreator) {
+        this.accountCreator = accountCreator;
     }
 
     @Override
