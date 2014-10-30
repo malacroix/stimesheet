@@ -45,6 +45,7 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
         newUser.setUuid(eventUser.getUuid());
         newUser.setFirstName(eventUser.getFirstName());
         newUser.setLastName(eventUser.getLastName());
+        newUser.setEmail(eventUser.getEmail());
         newUser.setLanguage(eventUser.getLanguage());
         newUser.setFromMarketplace(marketplace);
         newUser.setAccountCreator(accountCreator);
