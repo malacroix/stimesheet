@@ -162,6 +162,13 @@ public class User implements Serializable {
         this.accountCreator = accountCreator;
     }
 
+    /**
+     * @return Flag indicating if its Subscription Account is active or not, no account is considered as not active
+     */
+    public boolean isAccountActive() {
+        return getAccount() != null && getAccount().isActive();
+    }
+    
     @Override
 	public String toString() {
 	    return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE); 

@@ -39,7 +39,7 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     }
 
     @Override
-    public User createUser(EventUser eventUser, PartnerMarketplace marketplace) {
+    public User createUser(EventUser eventUser, PartnerMarketplace marketplace, boolean accountCreator) {
         User newUser = new User();
         newUser.setOpenId(eventUser.getOpenId());
         newUser.setUuid(eventUser.getUuid());
@@ -47,14 +47,14 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
         newUser.setLastName(eventUser.getLastName());
         newUser.setLanguage(eventUser.getLanguage());
         newUser.setFromMarketplace(marketplace);
+        newUser.setAccountCreator(accountCreator);
 
         return userRepository.save(newUser);
     }
 
     @Override
     public User updateUser(User user) {
-        // TODO Auto-generated method stub
-        return null;
+        return userRepository.save(user);
     }
     
     @Override
@@ -71,13 +71,9 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
         return partnerMarketplaceRepository.save(newPartnerMarket);
     }
 
-    /* (non-Javadoc)
-     * @see ca.lc.stimesheet.service.UserSubscriptionService#findSubscriptionAccountById(java.lang.String)
-     */
     @Override
     public SubscriptionAccount findSubscriptionAccountById(String accountId) {
-        // TODO Auto-generated method stub
-        return null;
+        return subscriptionAccountRepository.findOne(accountId);
     }
 
     @Override
@@ -91,41 +87,28 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
         return subscriptionAccountRepository.save(newSubsAccount);
     }
 
-    /* (non-Javadoc)
-     * @see ca.lc.stimesheet.service.UserSubscriptionService#assignUserToSubscription(ca.lc.stimesheet.model.SubscriptionAccount, ca.lc.stimesheet.model.User)
-     */
     @Override
     public void assignUserToSubscription(SubscriptionAccount account, User user) {
-        // TODO Auto-generated method stub
         
+        // Must do the link from each side
+        subscriptionAccountRepository.assignUser(account.getId(), user.getOpenId());
+        userRepository.updateUserSubscriptionAccount(user.getOpenId(), account.getId());
     }
 
-    /* (non-Javadoc)
-     * @see ca.lc.stimesheet.service.UserSubscriptionService#unassignUserFromSubscription(ca.lc.stimesheet.model.SubscriptionAccount, ca.lc.stimesheet.model.User)
-     */
     @Override
     public void unassignUserFromSubscription(SubscriptionAccount account, User user) {
-        // TODO Auto-generated method stub
-        
+        // Must do the link from each side
+        subscriptionAccountRepository.unassignUser(account.getId(), user.getOpenId());
+        userRepository.updateUserSubscriptionAccount(user.getOpenId(), null);
     }
 
-    /* (non-Javadoc)
-     * @see ca.lc.stimesheet.service.UserSubscriptionService#updateSubscriptionAccountStatus(ca.lc.stimesheet.model.SubscriptionAccount, ca.lc.stimesheet.model.SubscriptionState)
-     */
     @Override
     public void updateSubscriptionAccountStatus(SubscriptionAccount account, SubscriptionState newState) {
-        // TODO Auto-generated method stub
-        
+       subscriptionAccountRepository.updateSubscriptionAccountStatus(account.getId(), newState);   
     }
 
-    /* (non-Javadoc)
-     * @see ca.lc.stimesheet.service.UserSubscriptionService#updateSubscriptionAccountEditionCode(ca.lc.stimesheet.model.SubscriptionAccount, java.lang.String)
-     */
     @Override
     public void updateSubscriptionAccountEditionCode(SubscriptionAccount account, String newEditionCode) {
-        // TODO Auto-generated method stub
-        
+        subscriptionAccountRepository.updateSubscriptionAccountEditionCode(account.getId(), newEditionCode);
     }
-
-
 }

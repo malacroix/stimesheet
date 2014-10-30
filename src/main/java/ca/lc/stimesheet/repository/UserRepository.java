@@ -13,6 +13,6 @@ import ca.lc.stimesheet.model.User;
  *
  */
 @Repository
-public interface UserRepository extends PagingAndSortingRepository<User, String> {
+public interface UserRepository extends UserCustomRepository, PagingAndSortingRepository<User, String> {
       
 }

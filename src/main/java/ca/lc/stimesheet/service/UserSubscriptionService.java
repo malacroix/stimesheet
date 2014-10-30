@@ -31,9 +31,10 @@ public interface UserSubscriptionService {
      * Creates a new {@link User}.
      * @param eventUser
      * @param marketplace
+     * @param accountCreator
      * @return
      */
-    User createUser(EventUser eventUser, PartnerMarketplace marketplace);
+    User createUser(EventUser eventUser, PartnerMarketplace marketplace, boolean accountCreator);
     
     /**
      * Updates a {@link User} infos.
