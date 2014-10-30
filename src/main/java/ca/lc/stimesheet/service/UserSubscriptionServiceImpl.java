@@ -33,49 +33,42 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     @Autowired
     private SubscriptionAccountRepository subscriptionAccountRepository;
 
-    /* (non-Javadoc)
-     * @see ca.lc.stimesheet.service.UserSubscriptionService#findUserByOpenId(java.lang.String)
-     */
     @Override
     public User findUserByOpenId(String openId) {
-        // TODO Auto-generated method stub
-        return null;
+        return userRepository.findOne(openId);
     }
 
-    /* (non-Javadoc)
-     * @see ca.lc.stimesheet.service.UserSubscriptionService#createUser(ca.lc.stimesheet.model.event.EventUser, ca.lc.stimesheet.model.PartnerMarketplace)
-     */
     @Override
     public User createUser(EventUser eventUser, PartnerMarketplace marketplace) {
-        // TODO Auto-generated method stub
-        return null;
+        User newUser = new User();
+        newUser.setOpenId(eventUser.getOpenId());
+        newUser.setUuid(eventUser.getUuid());
+        newUser.setFirstName(eventUser.getFirstName());
+        newUser.setLastName(eventUser.getLastName());
+        newUser.setLanguage(eventUser.getLanguage());
+        newUser.setFromMarketplace(marketplace);
+
+        return userRepository.save(newUser);
     }
 
-    /* (non-Javadoc)
-     * @see ca.lc.stimesheet.service.UserSubscriptionService#updateUser(ca.lc.stimesheet.model.User)
-     */
     @Override
     public User updateUser(User user) {
         // TODO Auto-generated method stub
         return null;
     }
-
-    /* (non-Javadoc)
-     * @see ca.lc.stimesheet.service.UserSubscriptionService#findPartnerMarketplaceByPartnerId(java.lang.String)
-     */
+    
     @Override
     public PartnerMarketplace findPartnerMarketplaceByPartnerId(String partnerId) {
-        // TODO Auto-generated method stub
-        return null;
+        return partnerMarketplaceRepository.findOne(partnerId);
     }
 
-    /* (non-Javadoc)
-     * @see ca.lc.stimesheet.service.UserSubscriptionService#createPartnerMarketplace(ca.lc.stimesheet.model.event.Marketplace)
-     */
     @Override
     public PartnerMarketplace createPartnerMarketplace(Marketplace marketplace) {
-        // TODO Auto-generated method stub
-        return null;
+        PartnerMarketplace newPartnerMarket = new PartnerMarketplace();
+        newPartnerMarket.setPartnerId(marketplace.getPartner());
+        newPartnerMarket.setBaseUrl(marketplace.getBaseUrl());
+
+        return partnerMarketplaceRepository.save(newPartnerMarket);
     }
 
     /* (non-Javadoc)
@@ -87,13 +80,15 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see ca.lc.stimesheet.service.UserSubscriptionService#createSubscriptionAccount(ca.lc.stimesheet.model.event.Order)
-     */
     @Override
     public SubscriptionAccount createSubscriptionAccount(Order order) {
-        // TODO Auto-generated method stub
-        return null;
+        SubscriptionAccount newSubsAccount = new SubscriptionAccount();
+        newSubsAccount.setEditionCode(order.getEditionCode());
+        
+        // We do not know if it is a trial, so it is active by default
+        newSubsAccount.setState(SubscriptionState.ACTIVE);
+
+        return subscriptionAccountRepository.save(newSubsAccount);
     }
 
     /* (non-Javadoc)
