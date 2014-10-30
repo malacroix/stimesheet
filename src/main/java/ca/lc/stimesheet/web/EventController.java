@@ -40,10 +40,6 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    // TODO : should handle all incoming URLS
-    // Create a EventService to handle all the cases, return EventResult
-    // EventService factory to retrieve EventHandler
-
     @RequestMapping(produces=MediaType.APPLICATION_XML_VALUE)
     public @ResponseBody ResponseEntity<EventResult> handle(@RequestParam(value = "partner", required = false) String partnerId,
                                                             @RequestParam(value = "url", required = false) String eventUrl,
