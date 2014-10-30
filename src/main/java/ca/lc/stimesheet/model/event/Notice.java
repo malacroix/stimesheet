@@ -12,18 +12,18 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class Notice {
 
-    private String type;
+    private NoticeType type;
     
     /**
      * @return the type
      */
-    public String getType() {
+    public NoticeType getType() {
         return type;
     }
     /**
      * @param type the type to set
      */
-    public void setType(String type) {
+    public void setType(NoticeType type) {
         this.type = type;
     }
     
