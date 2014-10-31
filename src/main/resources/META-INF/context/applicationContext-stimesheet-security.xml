@@ -20,7 +20,7 @@
 	<security:http>
 		
 		<security:openid-login
-				authentication-failure-handler-ref="authenticationFailureHandler"
+			    authentication-failure-url="/login/unauthorized"
 				authentication-success-handler-ref="authenticationSuccessHandler"
 				user-service-ref="internalUserDetailsService">
 
@@ -39,20 +39,10 @@
 	</security:http>
 
 	<security:authentication-manager>
-		<security:authentication-provider ref="openIdAuthProvider" />
-	</security:authentication-manager>
-	<bean id="openIdAuthProvider" class="org.springframework.security.openid.OpenIDAuthenticationProvider">
-		<property name="authenticationUserDetailsService" ref="internalUserDetailsService" />
-	</bean>
-<!-- 
-	<security:authentication-manager>
 	    <security:authentication-provider user-service-ref="internalUserDetailsService"  />
 	</security:authentication-manager>
-	 -->
 	
-	<!-- bean id="internalUserDetailsService" class="ca.lc.stimesheet.web.login.InternalUserDetailsService" / -->
-	<bean id="internalUserDetailsService" class="ca.lc.stimesheet.web.login.InternalAuthenticationUserDetailsService" />
-	<bean id="authenticationFailureHandler" class="ca.lc.stimesheet.web.login.LoginFailureHandler" />
+	<bean id="internalUserDetailsService" class="ca.lc.stimesheet.web.login.InternalUserDetailsService" />
 	<bean id="authenticationSuccessHandler" class="ca.lc.stimesheet.web.login.LoginSuccessHandler" />
 
 </beans>
