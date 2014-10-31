@@ -65,7 +65,7 @@ public interface UserSubscriptionService {
     /**
      * @return all the known {@link PartnerMarketplace}
      */
-    List<PartnerMarketplace> retrieveAllPartnerMarketplaces();
+    List<PartnerMarketplace> findAllPartnerMarketplaces();
     
     // ********************************************************
     // SubscriptionAccounts operations

@@ -75,7 +75,7 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     }
     
     @Override
-    public List<PartnerMarketplace> retrieveAllPartnerMarketplaces() {
+    public List<PartnerMarketplace> findAllPartnerMarketplaces() {
         return partnerMarketplaceRepository.findAllMarketplaces();
     }
     
