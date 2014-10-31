@@ -3,6 +3,8 @@
  */
 package ca.lc.stimesheet.repository;
 
+import java.util.List;
+
 import ca.lc.stimesheet.model.SubscriptionAccount;
 import ca.lc.stimesheet.model.SubscriptionState;
 import ca.lc.stimesheet.model.User;
@@ -41,4 +43,9 @@ public interface SubscriptionAccountCustomRepository {
      * @param newEditionCode
      */
     void updateSubscriptionAccountEditionCode(String subscriptionAccountId, String newEditionCode);
+    
+    /**
+     * @return all the {@link SubscriptionAccount}.
+     */
+    List<SubscriptionAccount> findAllSubscriptionAccounts();
 }

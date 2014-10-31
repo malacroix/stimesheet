@@ -13,6 +13,6 @@ import ca.lc.stimesheet.model.PartnerMarketplace;
  *
  */
 @Repository
-public interface PartnerMarketplaceRepository extends PagingAndSortingRepository<PartnerMarketplace, String> {
+public interface PartnerMarketplaceRepository extends PartnetMarketplaceCustomRepository,PagingAndSortingRepository<PartnerMarketplace, String> {
       
 }

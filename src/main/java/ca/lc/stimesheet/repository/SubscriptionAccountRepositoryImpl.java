@@ -3,6 +3,8 @@
  */
 package ca.lc.stimesheet.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -53,4 +55,8 @@ public class SubscriptionAccountRepositoryImpl implements SubscriptionAccountCus
         mongoTemplate.updateFirst(query, update, SubscriptionAccount.class);
     }
 
+    @Override
+    public List<SubscriptionAccount> findAllSubscriptionAccounts() {
+        return mongoTemplate.findAll(SubscriptionAccount.class);
+    }
 }

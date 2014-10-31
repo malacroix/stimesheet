@@ -3,6 +3,8 @@
  */
 package ca.lc.stimesheet.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,7 +73,12 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
 
         return partnerMarketplaceRepository.save(newPartnerMarket);
     }
-
+    
+    @Override
+    public List<PartnerMarketplace> retrieveAllPartnerMarketplaces() {
+        return partnerMarketplaceRepository.findAllMarketplaces();
+    }
+    
     @Override
     public SubscriptionAccount findSubscriptionAccountById(String accountId) {
         return subscriptionAccountRepository.findOne(accountId);
@@ -111,5 +118,10 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     @Override
     public void updateSubscriptionAccountEditionCode(SubscriptionAccount account, String newEditionCode) {
         subscriptionAccountRepository.updateSubscriptionAccountEditionCode(account.getId(), newEditionCode);
+    }
+
+    @Override
+    public List<SubscriptionAccount> findAllSubscriptionAccounts() {
+        return subscriptionAccountRepository.findAllSubscriptionAccounts();
     }
 }

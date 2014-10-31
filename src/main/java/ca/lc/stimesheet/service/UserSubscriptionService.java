@@ -3,6 +3,8 @@
  */
 package ca.lc.stimesheet.service;
 
+import java.util.List;
+
 import ca.lc.stimesheet.model.PartnerMarketplace;
 import ca.lc.stimesheet.model.SubscriptionAccount;
 import ca.lc.stimesheet.model.SubscriptionState;
@@ -60,6 +62,11 @@ public interface UserSubscriptionService {
      */
     PartnerMarketplace createPartnerMarketplace(Marketplace marketplace);
     
+    /**
+     * @return all the known {@link PartnerMarketplace}
+     */
+    List<PartnerMarketplace> retrieveAllPartnerMarketplaces();
+    
     // ********************************************************
     // SubscriptionAccounts operations
     
@@ -104,4 +111,9 @@ public interface UserSubscriptionService {
      * @param newEditionCode
      */
     void updateSubscriptionAccountEditionCode(SubscriptionAccount account, String newEditionCode);
+    
+    /**
+     * @return All the {@link SubscriptionAccount}
+     */
+    List<SubscriptionAccount> findAllSubscriptionAccounts();
 }
