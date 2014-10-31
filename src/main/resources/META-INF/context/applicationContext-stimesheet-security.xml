@@ -21,7 +21,6 @@
 		
 		<security:openid-login
 			    authentication-failure-url="/login/unauthorized"
-				authentication-success-handler-ref="authenticationSuccessHandler"
 				user-service-ref="internalUserDetailsService">
 
 			<!-- Match all Marketplaces as they should have all the same openid-attributes -->
@@ -43,6 +42,5 @@
 	</security:authentication-manager>
 	
 	<bean id="internalUserDetailsService" class="ca.lc.stimesheet.web.login.InternalUserDetailsService" />
-	<bean id="authenticationSuccessHandler" class="ca.lc.stimesheet.web.login.LoginSuccessHandler" />
 
 </beans>
