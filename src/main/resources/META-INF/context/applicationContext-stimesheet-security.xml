@@ -35,6 +35,7 @@
 			</security:attribute-exchange>
 		</security:openid-login>
 		
+		<security:logout logout-url="/j_spring_security_logout" success-handler-ref="customLogoutSuccessHandler"/>
 	</security:http>
 
 	<security:authentication-manager>
@@ -42,5 +43,6 @@
 	</security:authentication-manager>
 	
 	<bean id="internalUserDetailsService" class="ca.lc.stimesheet.web.login.InternalUserDetailsService" />
+	<bean id="customLogoutSuccessHandler" class="ca.lc.stimesheet.web.login.CustomLogoutSuccessHandler" />
 
 </beans>

@@ -16,6 +16,7 @@
 					<!-- Menu : enter timesheet, view timesheets, billing, user account mngt -->
 					
 					<li th:unless="${authenticated}"><a th:href="@{/login}">Login</a></li>
+					<li th:if="${authenticated}"><a th:href="@{/j_spring_security_logout}">Logout</a></li>
 					
 				</ul>
 			</div>
