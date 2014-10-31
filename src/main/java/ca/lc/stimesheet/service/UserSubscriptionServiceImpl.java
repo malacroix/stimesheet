@@ -85,9 +85,10 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     }
 
     @Override
-    public SubscriptionAccount createSubscriptionAccount(Order order) {
+    public SubscriptionAccount createSubscriptionAccount(Order order, PartnerMarketplace partnerMarketplace) {
         SubscriptionAccount newSubsAccount = new SubscriptionAccount();
         newSubsAccount.setEditionCode(order.getEditionCode());
+        newSubsAccount.setFromMarketplace(partnerMarketplace);
         
         // We do not know if it is a trial, so it is active by default
         newSubsAccount.setState(SubscriptionState.ACTIVE);

@@ -80,9 +80,10 @@ public interface UserSubscriptionService {
     /**
      * Creates a new {@link SubscriptionAccount}.
      * @param order
+     * @param partnerMarketplace
      * @return
      */
-    SubscriptionAccount createSubscriptionAccount(Order order);
+    SubscriptionAccount createSubscriptionAccount(Order order, PartnerMarketplace partnerMarketplace);
     
     /**
      * Adds the {@link User} to Assigned Users list of the {@link SubscriptionAccount}

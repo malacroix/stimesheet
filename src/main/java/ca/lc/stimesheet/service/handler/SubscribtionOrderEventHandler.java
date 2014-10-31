@@ -45,7 +45,7 @@ public class SubscribtionOrderEventHandler extends EventTypeHandler {
         }
         
         // Create the Subscription
-        SubscriptionAccount subsAccount = getUserSubscriptionService().createSubscriptionAccount(event.getPayload().getOrder());
+        SubscriptionAccount subsAccount = getUserSubscriptionService().createSubscriptionAccount(event.getPayload().getOrder(), partnerMartket);
         
         // Now get the local user
         userCreator = createOrUpdateUser(event.getCreator(), partnerMartket, true);
