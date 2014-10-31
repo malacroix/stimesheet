@@ -12,7 +12,7 @@ import ca.lc.stimesheet.model.User;
  * @author Marc-Andre Lacroix
  *
  */
-public interface SubscriptionAccountCustomerRepository {
+public interface SubscriptionAccountCustomRepository {
     
     /**
      * Adds the {@link User} to Assigned Users list of the {@link SubscriptionAccount}

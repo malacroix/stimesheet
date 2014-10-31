@@ -16,7 +16,7 @@ import ca.lc.stimesheet.model.SubscriptionState;
  * @author Marc-Andre Lacroix
  *
  */
-public class SubscriptionAccountRepositoryImpl implements SubscriptionAccountCustomerRepository {
+public class SubscriptionAccountRepositoryImpl implements SubscriptionAccountCustomRepository {
 
     @Autowired
     private MongoTemplate mongoTemplate;

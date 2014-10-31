@@ -13,6 +13,6 @@ import ca.lc.stimesheet.model.SubscriptionAccount;
  *
  */
 @Repository
-public interface SubscriptionAccountRepository extends SubscriptionAccountCustomerRepository, PagingAndSortingRepository<SubscriptionAccount, String> {
+public interface SubscriptionAccountRepository extends SubscriptionAccountCustomRepository, PagingAndSortingRepository<SubscriptionAccount, String> {
       
 }
