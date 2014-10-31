@@ -14,7 +14,7 @@ import ca.lc.stimesheet.model.PartnerMarketplace;
  * @author Marc-Andre Lacroix
  *
  */
-public class PartnetMarketplaceRepositoryImpl implements PartnetMarketplaceCustomRepository {
+public class PartnerMarketplaceRepositoryImpl implements PartnerMarketplaceCustomRepository {
 
     @Autowired
     private MongoTemplate mongoTemplate;

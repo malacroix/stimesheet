@@ -12,7 +12,7 @@ import ca.lc.stimesheet.model.PartnerMarketplace;
  * @author Marc-Andre Lacroix
  *
  */
-public interface PartnetMarketplaceCustomRepository {
+public interface PartnerMarketplaceCustomRepository {
     
     /**
      * @return All known {@link PartnerMarketplace}
