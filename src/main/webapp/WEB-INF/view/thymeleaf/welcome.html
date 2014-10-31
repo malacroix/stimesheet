@@ -15,6 +15,21 @@
 			You are not authenticated.
 		</div>
 
+
+		<h1>Subscriptions</h1>
+		
+		<div th:each="entry : ${subsPerMarketMap}">
+			<h2 th:text="${entry.key.partnerId}">Marketplace</h2>
+			
+			<table th:each="subscription : ${entry.value}">
+				<tr>
+					<th th:text="${subscription.editionCode} + ' (' + ${subscription.state} + ')'">Trial Edition</th>
+				</tr>
+				<tr th:each="user : ${subscription.assignedUsers}"> 
+					<th th:text="${user.firstName} + ' ' + ${user.lastName}">FirstName LastName</th>
+				</tr>
+	        </table>
+		</div>
 	</body>
 
 </html>
