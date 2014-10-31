@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head th:include="thymeleaf/layout :: headerFragment('Login')" />
+	
+	<body>
+		<p>Please select the Marketplace you want to login.</p>
+
+		<select id="marketplace">
+			<option value="1" th:each="marketplace : ${marketplaces}" th:value="${marketplace.baseUrl}" th:text="${marketplace.partnerId}"></option>
+		</select>
+		
+		<button name="login" th:text="Login" th:onclick="'login(\'' + ${#httpServletRequest.getContextPath()} + '\');'">Login</button>
+	</body>
+
+</html>

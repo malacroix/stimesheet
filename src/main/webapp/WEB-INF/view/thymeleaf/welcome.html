@@ -6,12 +6,9 @@
 		<div th:include="thymeleaf/layout :: menuFragment"></div>
 		
 		<h1>Simple Timesheet</h1>
-		This is my name : <span th:text="${name}">name</span><br />
-		Query Params: <span th:text="${param.q[0]}" th:unless="${param.q == null}">q param</span>
-		              <span th:unless="${param.q != null}">none passed : 'q' param</span>
-		
+
 		<div th:if="${authenticated}">
-			<p>Welcome <span th:text="${user.firstName} + ${user.lastName}">John Dow</span>.</p>
+			<p>Welcome <span th:text="${user.firstName} + ' ' + ${user.lastName}">John Dow</span>.</p>
 			<p>You currently have a <span th:text="${user.account.editionCode}">Basic</span> subscription.</p>
 		</div>
 		<div th:unless="${authenticated}">
