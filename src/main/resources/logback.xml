@@ -7,13 +7,13 @@
 	</appender>
 	
 	<logger name="org.springframework" level="WARN" />
-	<logger name="org.springframework.security" level="DEBUG" />
+	<logger name="org.springframework.security" level="WARN" />
 	<logger name="org.thymeleaf" level="WARN" />
 	
 	<logger name="ca.lc.stimesheet.web.interceptor.RequestLoggingInterceptor" level="DEBUG" />
 	
 	<!-- By Default -->
-	<logger name="ca.lc.stimesheet" level="DEBUG" />
+	<logger name="ca.lc.stimesheet" level="INFO" />
 	
 	<root level="INFO">
 		<appender-ref ref="STDOUT" />
