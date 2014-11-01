@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -104,6 +105,21 @@ public class SubscriptionAccount implements Serializable {
      */
     public void setFromMarketplace(PartnerMarketplace fromMarketplace) {
         this.fromMarketplace = fromMarketplace;
+    }
+    
+    /**
+     * Derived getter to retrieve the Account Creator from the Assigned Users.
+     * @return 
+     */
+    @Transient
+    public User getCreator() {
+        for (User assignedUser : assignedUsers) {
+            if (assignedUser.isAccountCreator()) {
+                return assignedUser;
+            }
+        }
+        // could not find any
+        return null;
     }
     
     @Override

@@ -27,16 +27,24 @@ public class PublicController {
     @RequestMapping({"/", "/welcome"})
     public String welcome(Model model, @RequestParam(value = "name", required = false) String name) {
         
+        List<String> partnerIds = new ArrayList<String>(); 
+        model.addAttribute("partnerIds", partnerIds);
+        
+        List<PartnerMarketplace> markets = userSubscriptionService.findAllPartnerMarketplaces();
+        for (PartnerMarketplace market : markets) {
+            partnerIds.add(market.getPartnerId());
+        }
+        
         // We are showing the Subscriptions and assigned users per Marketplace, so generate a map
-        Map<PartnerMarketplace, List<SubscriptionAccount>> subsPerMarketMap = new HashMap<PartnerMarketplace, List<SubscriptionAccount>>();
+        Map<String, List<SubscriptionAccount>> subsPerMarketMap = new HashMap<String, List<SubscriptionAccount>>();
         model.addAttribute("subsPerMarketMap", subsPerMarketMap);
         
         List<SubscriptionAccount> allSubsAccount = userSubscriptionService.findAllSubscriptionAccounts();
         for (SubscriptionAccount subsAccount : allSubsAccount) {
-            List<SubscriptionAccount> marketSubs = subsPerMarketMap.get(subsAccount.getFromMarketplace());
+            List<SubscriptionAccount> marketSubs = subsPerMarketMap.get(subsAccount.getFromMarketplace().getPartnerId());
             if (marketSubs == null) {
                 marketSubs = new ArrayList<SubscriptionAccount>();
-                subsPerMarketMap.put(subsAccount.getFromMarketplace(), marketSubs);
+                subsPerMarketMap.put(subsAccount.getFromMarketplace().getPartnerId(), marketSubs);
             }
             
             marketSubs.add(subsAccount);

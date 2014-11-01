@@ -5,31 +5,43 @@
 	<body>
 		<div th:include="thymeleaf/layout :: menuFragment"></div>
 		
-		<h1>Simple Timesheet</h1>
-
-		<div th:if="${authenticated}">
-			<p>Welcome <span th:text="${user.firstName} + ' ' + ${user.lastName}">John Dow</span>.</p>
-			<p>You currently have a <span th:text="${user.account.editionCode}">Basic</span> subscription.</p>
-		</div>
-		<div th:unless="${authenticated}">
-			You are not authenticated.
-		</div>
+		<div class="container timsheet-container">
+			<div class="page-header">
+				<h1>Welcome</h1>
+			</div>
+			<p>Below, you can find the list of Subscriptions that were registered to this site through their originating Marketplace.</p>
 
 
-		<h1>Subscriptions</h1>
+			<div th:each="partnerId : ${partnerIds}">
+				<div class="page-header">
+					<h2 th:text="${partnerId}">Marketplace</h2>
+				</div>
+				
+				<div class="panel panel-default" th:each="subscription : ${subsPerMarketMap.get(partnerId)}">
+					<!-- Default panel contents -->
+					<div class="panel-heading" th:text="${subscription.editionCode} + ' (' + ${subscription.state} + ')'">Trial Edition</div>
+					<div class="panel-body" th:object="${subscription.creator}">
+						<p>Created by: <span th:text="*{firstName} + ' ' + *{lastName}">FirstName LastName</span></p>
+					</div>
 		
-		<div th:each="entry : ${subsPerMarketMap}">
-			<h2 th:text="${entry.key.partnerId}">Marketplace</h2>
-			
-			<table th:each="subscription : ${entry.value}">
-				<tr>
-					<th th:text="${subscription.editionCode} + ' (' + ${subscription.state} + ')'">Trial Edition</th>
-				</tr>
-				<tr th:each="user : ${subscription.assignedUsers}"> 
-					<th th:text="${user.firstName} + ' ' + ${user.lastName}">FirstName LastName</th>
-				</tr>
-	        </table>
+					<!-- Assigned Users-->
+					<table class="table">
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+						</tr>
+						<tr th:each="assignedUser : ${subscription.assignedUsers}">
+							<td th:text="${assignedUser.firstName}">First Name</td>
+							<td th:text="${assignedUser.lastName}">Last Name</td>
+							<td th:text="${assignedUser.email}">Email</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
 		</div>
+		
 	</body>
 
 </html>
