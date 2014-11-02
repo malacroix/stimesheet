@@ -18,8 +18,11 @@
     <context:component-scan base-package="ca.lc.stimesheet" />
 
 	<security:http>
+		<!-- Protect the timesheet pages -->
+		<security:intercept-url pattern="/timesheet/**" access="IS_AUTHENTICATED_FULLY" />
 		
 		<security:openid-login
+				login-page="/login"
 			    authentication-failure-url="/login/unauthorized"
 				user-service-ref="internalUserDetailsService">
 
