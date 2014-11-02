@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-	<head th:include="thymeleaf/layout :: headerFragment('Welcome to the Simple Timesheet app!')" />
+	<head th:include="thymeleaf/layout :: headerFragment('Unauthorized')" />
 	
 	<body>
-		<h1>Simple Timesheet - Unauthorized Access</h1>
+		<div th:include="thymeleaf/layout :: menuFragment('unauthorized')"></div>
 		
-		You do not have access to managing your timesheet.
-		
-		You need a valid subscription, which you can try/buy from <a href="https://www.appdirect.com/home">here</a>
+		<div class="container timsheet-container">
+			<div class="page-header">
+				<h1>Unauthorized Access</h1>
+			</div>
+			<p>You do not have access to managing your timesheet.</p>
+			
+			<p>You need a valid subscription, which you can try/buy from <a href="https://www.appdirect.com/home">here</a></p>
 	
+		</div>
 	</body>
 
 </html>
