@@ -7,15 +7,21 @@
 		
 		<div class="container timsheet-container">
 			<div class="page-header">
-				<h1>Welcome</h1>
+				<h1>Login</h1>
 			</div>
-			<p>Please select the Marketplace you want to login.</p>
+			<div th:if="${not #lists.isEmpty(marketplaces)}">
+				<p>Please select the Marketplace you want to login.</p>
 
-			<select id="marketplace">
-				<option value="1" th:each="marketplace : ${marketplaces}" th:value="${marketplace.baseUrl}" th:text="${marketplace.partnerId}"></option>
-			</select>
-			
-			<button name="login" th:text="Login" th:onclick="'login(\'' + ${#httpServletRequest.getContextPath()} + '\');'">Login</button>
+				<select id="marketplace">
+					<option value="1" th:each="marketplace : ${marketplaces}" th:value="${marketplace.baseUrl}" th:text="${marketplace.partnerId}"></option>
+				</select>
+				
+				<button name="login" th:text="Login" th:onclick="'login(\'' + ${#httpServletRequest.getContextPath()} + '\');'">Login</button>
+			</div>
+			<div th:if="${#lists.isEmpty(marketplaces)}">
+				<p>No Marketplaces are known. Cannot login to anything.</p>
+			</div>
+
 		</div>
 	</body>
 
