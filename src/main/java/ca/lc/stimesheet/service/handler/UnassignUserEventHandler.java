@@ -43,7 +43,12 @@ public class UnassignUserEventHandler extends EventTypeHandler {
         // Also, make sure the user is really in the current subscription account
         if (assignedUser.getAccount() != null && !StringUtils.equals(assignedUser.getAccount().getId(), subsAccount.getId())) {
             // Something is wrong. The user has a different subscription..
-            throw new EventHandlingException(ErrorCode.UNKNOWN_ERROR, "Cannot unassign user. He is assigned to another Subscription account.");
+            throw new EventHandlingException(ErrorCode.UNAUTHORIZED, "Cannot unassign user. He is assigned to another Subscription account.");
+        }
+        
+        // Cannot unassign the creator
+        if (assignedUser.isAccountCreator()) {
+            throw new EventHandlingException(ErrorCode.UNAUTHORIZED, "Cannot unassign the creator user of this subscription.");
         }
 
         // Unassign it
